@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    tools:context=".view.MovieListActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="12dp"
+        android:src="@drawable/ic_baseline_movie_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtAppTitle"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="12dp"
+        android:text="@string/movie_rating"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/txtSearchView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:background="@drawable/search_view_background"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:paddingStart="@dimen/margin_8dp"
+        android:paddingEnd="@dimen/margin_40dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGo"
+        app:layout_constraintEnd_toStartOf="@+id/btnGo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnGo" />
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_6dp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSearchView"
+        app:layout_constraintEnd_toEndOf="@+id/txtSearchView"
+        app:layout_constraintTop_toTopOf="@+id/txtSearchView" />
+
+    <Button
+        android:id="@+id/btnGo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:background="@null"
+        android:text="@string/button_go"
+        android:textSize="@dimen/text_size_18"
+        app:layout_constraintVertical_bias="0.0"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAppTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnGo"
+        app:layout_constraintStart_toStartOf="@+id/txtSearchView"
+        app:layout_constraintTop_toBottomOf="@+id/btnGo"
+        tools:listitem="@layout/list_item_movie" />
+
+    <ProgressBar
+        android:id="@+id/progressCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtNoResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_40dp"
+        android:text="@string/no_data_found"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearchView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

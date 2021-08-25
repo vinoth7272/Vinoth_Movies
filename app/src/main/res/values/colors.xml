@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_200">#1D1D28</color>
+    <color name="blue_700">#191922</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="teal_200">#03DAc6</color>
+    <color name="teal_800">#018786</color>
+    <color name="red_100">#B00020</color>
+    <color name="app_bg">#1D1D28</color>
+    <color name="card_bg">#F51D1D28</color>
+    <color name="color_grey">#6F6F71</color>
+</resources>
