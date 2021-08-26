@@ -1,5 +1,6 @@
 package com.example.movierating
 
+import android.content.Intent
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
@@ -7,10 +8,18 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import com.example.movierating.view.MovieDetailActivity
 import com.example.movierating.view.MovieListActivity
+import com.example.movierating.view.MoviesAdapter
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,9 +36,18 @@ class MovieListActivityInstrumentedTest {
     var activityScenarioRule: ActivityScenarioRule<MovieListActivity> =
         ActivityScenarioRule(MovieListActivity::class.java)
 
+    @Rule
+    @JvmField
+    var intentsRule: ActivityTestRule<MovieListActivity> =
+        ActivityTestRule(MovieListActivity::class.java, true, false)
+
+    @Before
+    fun setUp(){
+        Intents.init()
+    }
+
     @Test
-    fun validateEditText() {
-        onView(withId(R.id.txtSearchView)).perform(typeText("Star"))
+    fun validateEditTextSuccess() {
         onView(withId(R.id.btnGo)).perform(click())
         onView(isRoot()).perform(waitFor())
         onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
@@ -37,10 +55,24 @@ class MovieListActivityInstrumentedTest {
 
     @Test
     fun validateRecyclerViewItem() {
-        onView(withId(R.id.txtSearchView)).perform(typeText("Star"))
         onView(withId(R.id.btnGo)).perform(click())
         onView(isRoot()).perform(waitFor())
         onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+    }
+
+    @Test
+    fun validateListItemClickTest() {
+        onView(withId(R.id.btnGo)).perform(click())
+        onView(isRoot()).perform(waitFor())
+        onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.recyclerView)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<MoviesAdapter.MovieViewHolder>(
+                0,
+                click()
+            )
+        )
+        intentsRule.launchActivity(Intent())
+        Intents.intended(IntentMatchers.hasComponent(MovieDetailActivity::class.java.name))
     }
 
     private fun waitFor(): ViewAction {
@@ -51,5 +83,11 @@ class MovieListActivityInstrumentedTest {
                 uiController.loopMainThreadForAtLeast(5000)
             }
         }
+    }
+
+    @After
+    @Throws(Exception::class)
+    fun tearDown() {
+        Intents.release()
     }
 }

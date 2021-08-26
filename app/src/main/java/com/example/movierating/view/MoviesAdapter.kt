@@ -38,13 +38,14 @@ class MoviesAdapter :
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        Log.d(MoviesAdapter::class.java.simpleName, "MovieViewHolder position-> $position")
         holder.bindData(moviesList[position], position, listItemClickListener)
     }
 
     override fun getItemCount() = moviesList.size
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = ListItemMovieBinding.bind(itemView)
+        private val binding = ListItemMovieBinding.bind(itemView)
 
         fun bindData(
             movie: Movies,

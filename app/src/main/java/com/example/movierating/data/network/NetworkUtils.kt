@@ -5,17 +5,16 @@ import android.net.ConnectivityManager
 
 object NetworkUtils {
 
-    fun getNetworkError(code: Int, message: String): String {
-        return when {
-            code == 504 -> {
-                "Timeout Server Not Respond"
-            }
-            message.isNotEmpty() -> {
-                message
-            }
-            else -> {
-                "Something went wrong."
-            }
+    const val UNAUTHORIZED = "Unauthorized"
+    const val NOT_FOUND = "Not found"
+    const val SOMETHING_WRONG = "Something went wrong"
+
+
+    fun getErrorMessage(httpCode: Int): String {
+        return when (httpCode) {
+            401 -> UNAUTHORIZED
+            404 -> NOT_FOUND
+            else -> SOMETHING_WRONG
         }
     }
 

@@ -41,7 +41,6 @@ class MovieListActivity :
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setContentView(R.layout.activity_main)
         initViews()
         initialApiCall()
         initAdapter()
@@ -94,14 +93,14 @@ class MovieListActivity :
                 CoroutineScope(Dispatchers.Default).launch {
                     moviesResource.data?.let {
                         it.movies?.let { movies ->
-                            withContext(Dispatchers.Main) {
-                                updateUI(movies.isNotEmpty())
-                            }
                             moviesList = movies
                             Log.d(
                                 MovieViewModel::class.java.simpleName,
                                 "movieListResponse -> ${moviesList.size}"
                             )
+                            withContext(Dispatchers.Main) {
+                                updateUI(moviesList.isNotEmpty())
+                            }
                             moviesAdapter.setData(moviesList)
                         }
                     }

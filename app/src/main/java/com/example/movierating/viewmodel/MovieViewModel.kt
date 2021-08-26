@@ -1,4 +1,3 @@
-
 package com.example.movierating.viewmodel
 
 import android.util.Log
@@ -6,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movierating.data.model.MoviePage
-import com.example.movierating.data.network.NetworkUtils
 import com.example.movierating.data.network.Resource
-import com.example.movierating.data.repository.RemoteRepository
+import com.example.movierating.data.repository.AppRemoteRepository
 import kotlinx.coroutines.launch
 
-class MovieViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
+class MovieViewModel(private val remoteRepository: AppRemoteRepository) : ViewModel() {
 
     private val movieListLiveData = MutableLiveData<Resource<MoviePage>>()
 
@@ -24,19 +22,7 @@ class MovieViewModel(private val remoteRepository: RemoteRepository) : ViewModel
             viewModelScope.launch {
                 movieListLiveData.postValue(Resource.loading(null))
                 val response = remoteRepository.getMovieList(apiKey = apiKey, keyWord = keyWord)
-                Log.d(MovieViewModel::class.java.simpleName, "getMovieList -> ${response.isSuccessful}")
-                if (response.isSuccessful) {
-                    movieListLiveData.postValue(Resource.success(response.body()))
-                } else {
-                    movieListLiveData.postValue(
-                        Resource.error(
-                            NetworkUtils.getNetworkError(
-                                response.code(),
-                                response.message()
-                            )
-                        )
-                    )
-                }
+                movieListLiveData.postValue(response)
             }
         } catch (e: Exception) {
             Log.e(MovieViewModel::class.java.simpleName, e.localizedMessage, e)
