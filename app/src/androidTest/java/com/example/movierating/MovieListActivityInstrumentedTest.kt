@@ -5,6 +5,7 @@ import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -44,17 +45,32 @@ class MovieListActivityInstrumentedTest {
     @Before
     fun setUp(){
         Intents.init()
+        onView(withId(R.id.txtSearchView)).perform(ViewActions.clearText())
+        onView(withId(R.id.txtSearchView)).perform(typeText("Star"))
     }
 
     @Test
-    fun validateEditTextSuccess() {
+    fun validateProgressLoading() {
         onView(withId(R.id.btnGo)).perform(click())
-        onView(isRoot()).perform(waitFor())
-        onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.progressCircular)).check(matches(withEffectiveVisibility(Visibility.GONE)))
+    }
+    @Test
+    fun validateNoResultText() {
+        onView(withId(R.id.txtSearchView)).perform(ViewActions.clearText())
+        onView(withId(R.id.btnGo)).perform(click())
+        onView(withId(R.id.txtNoResult)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
     @Test
-    fun validateRecyclerViewItem() {
+    fun testEditTextValidation() {
+        onView(withId(R.id.txtSearchView)).perform(ViewActions.clearText())
+        onView(withId(R.id.btnGo)).perform(click())
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(R.string.keyword_error)))
+    }
+
+    @Test
+    fun validateRecyclerViewVisibility() {
         onView(withId(R.id.btnGo)).perform(click())
         onView(isRoot()).perform(waitFor())
         onView(withId(R.id.recyclerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
