@@ -10,6 +10,7 @@ import com.example.movierating.util.AppUtils
 import com.example.movierating.util.Constant
 import com.example.movierating.util.Constant.IMAGE_BASE_URL
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class MovieDetailActivity : AppCompatActivity(), View.OnClickListener {
     private var movie: Movies? = null
@@ -35,8 +36,10 @@ class MovieDetailActivity : AppCompatActivity(), View.OnClickListener {
             binding.txtVoteCount.text = it.voteCount.toString()
             binding.txtRating.text = it.voteAverage.toString()
             binding.txtOverview.text = it.overview.toString()
-            if (it.originalLanguage == "en")
-                binding.txtLanguage.text = getString(R.string.english)
+            it.originalLanguage?.let { language ->
+                val locale = Locale(language)
+                binding.txtLanguage.text = locale.getDisplayLanguage(locale)
+            }
 
             // Using picasso to load images from URL
             Picasso.get().load(IMAGE_BASE_URL + it.posterPath)
