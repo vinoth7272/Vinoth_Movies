@@ -5,7 +5,6 @@ import com.example.movierating.data.model.MoviePage
 import com.example.movierating.data.network.ApiService
 import com.example.movierating.data.network.Resource
 import retrofit2.HttpException
-import retrofit2.Response
 
 class AppRemoteRepository(private val apiService: ApiService) : BaseRepository() {
 
@@ -34,7 +33,7 @@ class AppRemoteRepository(private val apiService: ApiService) : BaseRepository()
                 }
             }
         } catch (error: HttpException) {
-            Log.e("$TAG ","- Error: ${error.message}")
+            Log.e("$TAG ", "- Error: ${error.message}")
             return handleException(error.code())
         }
         return result

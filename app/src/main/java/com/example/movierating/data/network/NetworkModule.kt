@@ -24,7 +24,6 @@ val networkModule = DI.Module(MODULE_NAME, false) {
     bind<AppRemoteRepository>() with singleton { getRemoteRepository(instance()) }
 }
 
-
 private fun getOkHttpClient(): OkHttpClient {
     val loggingInterceptor = HttpLoggingInterceptor()
     loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

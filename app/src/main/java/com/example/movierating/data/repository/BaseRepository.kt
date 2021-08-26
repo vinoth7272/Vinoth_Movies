@@ -15,6 +15,5 @@ abstract class BaseRepository {
             val exception = getErrorMessage(code)
             return Resource.error(Exception(exception).localizedMessage)
         }
-
     }
 }

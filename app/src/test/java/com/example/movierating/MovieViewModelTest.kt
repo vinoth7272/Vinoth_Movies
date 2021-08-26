@@ -44,7 +44,7 @@ class MovieViewModelTest {
     fun setUp() {
         apiKey = BuildConfig.API_KEY
         remoteRepository = mock(AppRemoteRepository::class.java)
-        movieViewModel= MovieViewModel(remoteRepository)
+        movieViewModel = MovieViewModel(remoteRepository)
     }
 
     @ExperimentalCoroutinesApi
@@ -64,7 +64,7 @@ class MovieViewModelTest {
     fun getMovieList_whenFetch_shouldLoading() {
         testCoroutineRule.runBlockingTest {
             movieViewModel.getMovies().observeForever(apiUsersObserver)
-            movieViewModel.fetchMovies(apiKey,"Star")
+            movieViewModel.fetchMovies(apiKey, "Star")
             verify(apiUsersObserver).onChanged(Resource.loading())
         }
     }
@@ -75,11 +75,11 @@ class MovieViewModelTest {
         testCoroutineRule.runBlockingTest {
             movieViewModel.getMovies().observeForever(apiUsersObserver)
             `when`(remoteRepository.getMovieList(apiKey, "Star")).thenAnswer {
-                Resource.error(exception.message(),null)
+                Resource.error(exception.message(), null)
             }
             movieViewModel.fetchMovies(apiKey, "Star")
             assertNotNull(movieViewModel.getMovies().value)
-            assertEquals(Resource.error(exception.message(),null), movieViewModel.getMovies().value)
+            assertEquals(Resource.error(exception.message(), null), movieViewModel.getMovies().value)
         }
     }
 

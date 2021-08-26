@@ -5,7 +5,8 @@ import com.example.movierating.data.model.MoviePage
 import com.example.movierating.util.Constant.LANGUAGE
 import com.example.movierating.util.Constant.SEARCH_MOVIE
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
 

@@ -9,7 +9,6 @@ object NetworkUtils {
     const val NOT_FOUND = "Not found"
     const val SOMETHING_WRONG = "Something went wrong"
 
-
     fun getErrorMessage(httpCode: Int): String {
         return when (httpCode) {
             401 -> UNAUTHORIZED

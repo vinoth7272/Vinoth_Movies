@@ -43,7 +43,7 @@ class MovieListActivityInstrumentedTest {
         ActivityTestRule(MovieListActivity::class.java, true, false)
 
     @Before
-    fun setUp(){
+    fun setUp() {
         Intents.init()
         onView(withId(R.id.txtSearchView)).perform(ViewActions.clearText())
         onView(withId(R.id.txtSearchView)).perform(typeText("Star"))

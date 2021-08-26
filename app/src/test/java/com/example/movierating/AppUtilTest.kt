@@ -7,10 +7,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-
 @RunWith(JUnit4::class)
 class AppUtilTest {
-
 
     @Test
     fun testConvertDateFormat() {
@@ -19,20 +17,20 @@ class AppUtilTest {
     }
 
     @Test
-    fun validateNetworkError_code504(){
-       val result =   NetworkUtils.getErrorMessage(401)
-        Assert.assertEquals(NetworkUtils.UNAUTHORIZED,result)
-    }
-    @Test
-    fun validateNetworkError_ServerMessage(){
-       val result =   NetworkUtils.getErrorMessage(404)
-        Assert.assertEquals(NetworkUtils.NOT_FOUND,result)
+    fun validateNetworkError_code504() {
+        val result = NetworkUtils.getErrorMessage(401)
+        Assert.assertEquals(NetworkUtils.UNAUTHORIZED, result)
     }
 
     @Test
-    fun validateNetworkError_DefaultError(){
-       val result =   NetworkUtils.getErrorMessage(0)
-        Assert.assertEquals(NetworkUtils.SOMETHING_WRONG,result)
+    fun validateNetworkError_ServerMessage() {
+        val result = NetworkUtils.getErrorMessage(404)
+        Assert.assertEquals(NetworkUtils.NOT_FOUND, result)
     }
 
+    @Test
+    fun validateNetworkError_DefaultError() {
+        val result = NetworkUtils.getErrorMessage(0)
+        Assert.assertEquals(NetworkUtils.SOMETHING_WRONG, result)
+    }
 }
